@@ -23,8 +23,6 @@ function cat_npm_debug_log() {
   fi
 }
 
-trap cat_npm_debug_log EXIT
-
 BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
@@ -62,7 +60,7 @@ framework=$($dir/bin/detect $1)
 if [ $? == 0 ]; then
   echo "=====> Detected Framework: $framework"
   $dir/bin/compile $BUILD_DIR $CACHE_DIR $ENV_DIR
-
+trap cat_npm_debug_log EXIT
   if [ $? != 0 ]; then
     exit 1
   fi
